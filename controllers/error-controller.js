@@ -33,8 +33,11 @@ const handleCastErrorDB = err => {
 };
 
 const handleDuplicationField = err => {
-    const value = err.keyValue.title;
-    const message = `Duplicate field value: ${value}. Please use another value!`;
+    const value = err.keyValue;
+    const key = Object.keys(value)[0];
+    let message= '';
+    if(key==='email') message = `Email already exists!`;
+    else message = `Duplicate field value: ${key}. Please use another value!`;
     return new AppError(message, 400);
 }
 
@@ -51,6 +54,7 @@ const handleJWTExpiredError = err => new AppError('Your token has expired! Pleas
 
 module.exports = (err, req, res, next) => {
 
+    console.log(err.stack);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'Error';
     

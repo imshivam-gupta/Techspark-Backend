@@ -13,6 +13,6 @@ expressRouter.route('/:id')
 
 
 expressRouter.post('/checkout-session/:id', authController.protect, orderController.getCheckoutSession)
-expressRouter.post('/createIntent',  orderController.createIntent)
+expressRouter.post('/createIntent/:id', authController.protect, orderController.createIntent)
 module.exports = expressRouter;
 

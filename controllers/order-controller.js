@@ -15,7 +15,6 @@ exports.createOrder = catchAsync(async(req,res,next) => {
     const cart = await Cart.findOne({user:req.user._id});
     req.body.items = cart.items;
 
-
     const order = await Order.create({...req.body,user:req.user._id});
     res.status(201).json({
         status: 'success',
@@ -66,13 +65,19 @@ exports.getCheckoutSession = catchAsync(async(req,res,next) => {
         status: 'success',
         session
     })
-    
 });
 
 exports.createIntent = catchAsync(async(req,res,next) => {
+    const order = await Order.findById(req.params.id).populate('items.productId');
+
+    let amount = 0;
+    order.items.forEach(item => {
+        amount += item.qty * item.productId.price;
+    });
+
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: req.body.amount,
-        currency: 'usd',
+        amount: amount,
+        currency: 'IN',
         automatic_payment_methods: {
           enabled: true,
         },

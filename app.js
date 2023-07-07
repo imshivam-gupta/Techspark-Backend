@@ -29,8 +29,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(cors());
 
 const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
+    max: 1000,
+    windowMs: 15 * 60 * 1000,
     message: 'Too many requests from this IP, please try again in an hour!'
 });
 
@@ -67,7 +67,6 @@ app.all('*', (req, res, next) => {
 
 app.use( globalErrorHandler);
   
-
 module.exports = app;
 
 
