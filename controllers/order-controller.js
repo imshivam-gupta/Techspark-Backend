@@ -93,10 +93,12 @@ completeOrder = async(session) => {
     const order = await Order.findById(session.client_reference_id);
     const user = (await User.findOne({email: session.customer_email}))._id;
     
-    order.paymentMethod = 'Stripe';
+    order.paymentMethod = session.payment_method_types[0];
     order.isPaid = true;
     order.paidAt = Date.now();
     order.user = user;
+    order.totalPrice = session.amount_total / 100;
+    await order.save();
 }
 
 exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
