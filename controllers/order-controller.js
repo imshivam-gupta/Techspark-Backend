@@ -89,6 +89,7 @@ exports.createIntent = catchAsync(async(req,res,next) => {
 });
 
 completeOrder = async(session) => {
+    console.log(session);
     const order = await Order.findById(session.client_reference_id);
     const user = (await User.findOne({email: session.customer_email}))._id;
     
@@ -108,6 +109,8 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
     }
 
     if(event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+        console.log(session);
         completeOrder(event.data.object);
     }
 
