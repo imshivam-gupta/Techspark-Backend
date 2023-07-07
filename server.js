@@ -14,10 +14,7 @@ dotenv.config();
 
 console.log("ye dikkat hai",process.env.DATABASE);
 
-mongoose.connect(process.env.DATABASE,{
-    newUrlParser: true,
-    useCreateIndex: true
-}).then( () => {
+mongoose.connect(process.env.DATABASE).then( () => {
     console.log("DB connection Successful");
 });
 
