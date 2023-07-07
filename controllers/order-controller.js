@@ -89,7 +89,6 @@ exports.createIntent = catchAsync(async(req,res,next) => {
 });
 
 completeOrder = async(session) => {
-    // console.log(session);
     const order = await Order.findById(session.client_reference_id);
     const user = (await User.findOne({email: session.customer_email}))._id;
     
@@ -98,6 +97,11 @@ completeOrder = async(session) => {
     order.paidAt = Date.now();
     order.user = user;
     order.totalPrice = session.amount_total / 100;
+    
+    const cart = await Cart.findOne({user: user._id});
+    cart.items = [];
+
+    await cart.save();
     await order.save();
 }
 
