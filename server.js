@@ -12,7 +12,12 @@ process.on('uncaughtException', err => {
 const app = require("./app");
 dotenv.config(); 
 
-mongoose.connect(process.env.DATABASE).then( () => {
+console.log("ye dikkat hai",process.env.DATABASE);
+
+mongoose.connect(process.env.DATABASE,{
+    newUrlParser: true,
+    useCreateIndex: true
+}).then( () => {
     console.log("DB connection Successful");
 });
 
