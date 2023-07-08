@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const reviewSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, default: "Anonymous" },
     rating: {
       type: Number,
       required: true,
@@ -15,7 +15,7 @@ const reviewSchema = mongoose.Schema(
     user_email: { type: String, required: true },
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 

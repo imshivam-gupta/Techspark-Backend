@@ -112,7 +112,7 @@ exports.createProductReview = catchAsync(async(req,res,next) => {
     }
 
     const review = {
-        name: req.user.name,
+        name: req.user.name ,
         rating: Number(rating),
         image: req.user.image,
         title,
