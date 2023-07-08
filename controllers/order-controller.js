@@ -15,6 +15,14 @@ exports.createOrder = catchAsync(async(req,res,next) => {
     const cart = await Cart.findOne({user:req.user._id});
     req.body.items = cart.items;
 
+    let totalPrice = 0;
+    cart.items.forEach(item => {
+        totalPrice += item.qty * item.productId.price;
+    });
+    req.body.totalPrice = totalPrice;
+
+    
+
     const order = await Order.create({...req.body,user:req.user._id});
     res.status(201).json({
         status: 'success',
