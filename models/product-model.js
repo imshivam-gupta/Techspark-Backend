@@ -10,6 +10,7 @@ const reviewSchema = mongoose.Schema(
       max: 5,
     },
     title: { type: String, required: true },
+    image: { type: String, required: true },
     comment: { type: String, required: true },
     user_email: { type: String, required: true },
   },
