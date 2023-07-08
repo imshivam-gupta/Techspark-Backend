@@ -12,6 +12,7 @@ expressRouter.route(`/updatePassword`).patch(authController.protect, authControl
 
 
 expressRouter.route(`/me`).get(authController.protect, userController.getMe, userController.getUser);
+expressRouter.route(`/myorders`).get(authController.protect,  userController.getMyOrders);
 expressRouter.route(`/updateMe`).patch(authController.protect, userController.uploadUserPhoto,userController.resizeUserPhoto,userController.updateMe);
 expressRouter.route(`/deleteMe`).delete(authController.protect, userController.deleteMe);
 expressRouter.route(`/`).get(authController.protect,authController.restrictTo('admin'),userController.getAllUsers);

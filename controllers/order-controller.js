@@ -46,8 +46,8 @@ exports.getCheckoutSession = catchAsync(async(req,res,next) => {
         mode: 'payment',
         payment_method_types: ['card'],
         line_items: items || [],
-        success_url: `https://techspark.vercel.app/`,
-        cancel_url: `${req.protocol}://${req.get('host')}/cart`,
+        success_url: `https://techspark.vercel.app/my-orders`,
+        cancel_url: `https://techspark.vercel.app/`,
         customer_email: req.user.email,
         client_reference_id: req.params.id,
         custom_text: {
@@ -116,7 +116,6 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
 
     if(event.type === 'checkout.session.completed') {
         const session = event.data.object;
-        // console.log(session);
         completeOrder(event.data.object);
     }
 

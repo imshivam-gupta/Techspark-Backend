@@ -1,4 +1,5 @@
 const User = require("../models/user-model");
+const Order = require("../models/order-model");
 const AppError = require("../utility/app-error");
 const catchAsync = require("../utility/catch-async");
 const factory = require("../utility/factory-handler");
@@ -80,6 +81,12 @@ exports.getMe = (req, res, next) => {
     req.params.id = req.user.id;
     next();
 };
+
+
+exports.getMyOrders = catchAsync(async (req, res, next) => {
+    const orders = await Order.find({ user: req.user.id }).populate('items.productId');
+    res.status(200).json({ status: 'success', data: { orders }});
+});
 
 exports.updateMe = catchAsync(async (req, res, next) => {
 
