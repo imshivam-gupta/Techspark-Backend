@@ -16,8 +16,8 @@ exports.deleteOne = Model =>  catchAsync(async(req,res,next) => {
    });
 });
 
-exports.getAll = Model => catchAsync(async(req,res,next) => {
-  const features = new ApiFeatures(Model.find(),req.query).filter().sort().limitfields().paginate();
+exports.getAll = (Model) => catchAsync(async(req,res,next) => {
+  let features = new ApiFeatures(Model.find(),req.query).filter().sort().limitfields().paginate();
   const docs = await features.query;
 
   res.status(200).json({

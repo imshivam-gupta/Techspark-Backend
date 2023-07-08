@@ -5,7 +5,18 @@ const AppError = require("../utility/app-error");
 const factory = require("../utility/factory-handler");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-exports.getAllOrders = factory.getAll(Order);
+exports.getAllOrders = catchAsync(async(req,res,next) => {
+    const orders = await Order.find().populate('items.productId');
+    res.status(200).json({
+        status: 'success',
+        results: orders.length,
+        data:{
+            orders
+        }
+    })
+});
+
+
 exports.getOrder = factory.getOne(Order, { path: "items.productId" });
 exports.updateOrder = factory.updateOne(Order);
 exports.deleteOrder = factory.deleteOne(Order);

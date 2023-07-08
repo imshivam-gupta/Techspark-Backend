@@ -4,6 +4,7 @@ const expressRouter = require('express').Router();
 
 
 expressRouter.route(`/signup`).post(authController.signup);
+// expressRouter.route(`/login/google/callback`).get(authController.glogin);
 expressRouter.route(`/login`).post(authController.login);
 
 expressRouter.route(`/forgotPassword`).post(authController.forgotPassword);

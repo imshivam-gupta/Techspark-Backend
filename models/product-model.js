@@ -62,10 +62,6 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    is_discounted: {
-      type: Boolean,
-      default: false,
-    },
     discount: {
       type: Number,
       default: 0,
