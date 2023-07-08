@@ -12,7 +12,7 @@ exports.deleteOrder = factory.deleteOne(Order);
 
 exports.createOrder = catchAsync(async(req,res,next) => {
 
-    const cart = await Cart.findOne({user:req.user._id});
+    const cart = await Cart.findOne({user:req.user._id}).populate('items.productId');
     req.body.items = cart.items;
 
     let totalPrice = 0;
