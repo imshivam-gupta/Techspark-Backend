@@ -12,7 +12,6 @@ const sendErrorDev = (err, res) => {
 const sendErrorProd = (err, res) => {
 
     if(err.isOperational===true){
-        console.log("error aagya bhai",err.errmsg);
         return res.status(err.statusCode).json({
             status: err.status,
             message: err.errmsg

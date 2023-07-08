@@ -22,6 +22,7 @@ module.exports = class Email{
                 pass: process.env.EMAIL_PASSWORD
             }
         });
+
     }
 
 
@@ -39,6 +40,8 @@ module.exports = class Email{
             html,
             text: htmlToText(html)
         };
+
+        // console.log(mailOptions)
     
         await this.newTransport().sendMail(mailOptions);
     }
@@ -49,6 +52,10 @@ module.exports = class Email{
 
     async sendPasswordReset(){
         await this.send('passwordReset','Your password reset token (valid for only 10 minutes)');
+    }
+
+    async sendAdminRequest(){
+        await this.send('adminRequest','New Admin Request');
     }
 };
 

@@ -32,9 +32,13 @@ exports.createOrder = catchAsync(async(req,res,next) => {
     });
     req.body.totalPrice = totalPrice;
 
-    
 
     const order = await Order.create({...req.body,user:req.user._id});
+
+    const user = await User.findById(req.user._id);
+    user.orders.push(order._id);
+    await user.save({validateBeforeSave:false});
+    
     res.status(201).json({
         status: 'success',
         data: {

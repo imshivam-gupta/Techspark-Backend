@@ -60,7 +60,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 
 exports.login = catchAsync(async (req, res, next) => {
-    console.log("login");
     const { email, password } = req.body;
 
     if(!email || !password) {
@@ -89,7 +88,6 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
     const freshUser = await User.findById(decoded.id);
 
     if(!freshUser) {

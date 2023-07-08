@@ -65,7 +65,6 @@ exports.resizeProductPhoto = catchAsync(async (req, res, next) => {
 
     req.body.image = temp.secure_url;
 
-    console.log(req.body.image);
 
     req.body.other_images = [];
 

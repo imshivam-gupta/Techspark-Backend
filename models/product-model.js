@@ -144,7 +144,6 @@ productSchema.pre("save", function (next) {
 });
 
 productSchema.post("save", function (doc, next) {
-  console.log(doc.title);
   next();
 });
 

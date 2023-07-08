@@ -7,6 +7,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const sharp = require('sharp');
 const { Readable } = require("stream");
+const Email = require("../utility/mail-sender");
 
 
 const multerStrorage = multer.memoryStorage();
@@ -113,3 +114,18 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 
 
+exports.requestAdmin = catchAsync(async (req, res, next) => {
+    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/approveadmin/${req.user._id}`;  
+    let user = await User.findOne({ role: 'admin' });
+    await new Email(user,resetURL).sendAdminRequest();
+    res.status(200).json({ status: 'success', data: null});
+});
+
+
+exports.approveAdmin = catchAsync(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(req.params.id, { role: 'admin' }, {
+        new: true,
+        runValidators: true
+    });
+    res.status(200).json({ status: 'success', data: { user }});
+});

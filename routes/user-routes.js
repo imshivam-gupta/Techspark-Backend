@@ -11,6 +11,9 @@ expressRouter.route(`/forgotPassword`).post(authController.forgotPassword);
 expressRouter.route(`/resetPassword/:token`).patch(authController.resetPassword);
 expressRouter.route(`/updatePassword`).patch(authController.protect, authController.updatePassword);
 
+expressRouter.route(`/requestadmin`).get(authController.protect, userController.requestAdmin);
+expressRouter.route(`/approveadmin/:id`).get(userController.approveAdmin);
+
 
 expressRouter.route(`/me`).get(authController.protect, userController.getMe, userController.getUser);
 expressRouter.route(`/myorders`).get(authController.protect,  userController.getMyOrders);
