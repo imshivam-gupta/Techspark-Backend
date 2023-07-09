@@ -53,8 +53,11 @@ async function uploadStream(file) {
 
 exports.resizeProductPhoto = catchAsync(async (req, res, next) => {
 
-    if(!req.files.image || !req.files.other_images) return next();
 
+    if(!req.files) return next();
+    if(!req.files.image && !req.files.other_images) return next();
+
+    if(req.files.image){
     await sharp(req.files.image[0].buffer) 
     .resize(2000, 1333)
     .toFormat('jpeg')
@@ -62,9 +65,10 @@ exports.resizeProductPhoto = catchAsync(async (req, res, next) => {
 
     req.files.image.filename = `product-${req.params.id}-${Date.now()}-cover.jpeg`;
     let temp = await uploadStream(req.files.image[0]);
-
     req.body.image = temp.secure_url;
+    }
 
+    if(!req.files.other_images) return next();
 
     req.body.other_images = [];
 

@@ -30,6 +30,7 @@ exports.getAll = (Model) => catchAsync(async(req,res,next) => {
 });
 
 exports.updateOne = Model => catchAsync(async (req, res, next) => {
+
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
@@ -39,7 +40,8 @@ exports.updateOne = Model => catchAsync(async (req, res, next) => {
       return next(new AppError('No document found with that ID', 404));
     }
 
-    res.status(200).json({
+
+    return res.status(200).json({
       status: 'success',
       data: {
         data: doc
@@ -69,11 +71,12 @@ exports.createOne = (Model,user_to_add) => catchAsync(async (req, res, next) => 
     let doc;
     if(user_to_add && user_to_add===true) doc = await Model.create({...req.body,user:req.user._id});
     else doc = await Model.create(req.body);
-    
+
     res.status(201).json({
       status: 'success',
       data: {
         data: doc
       }
     });
+
 });

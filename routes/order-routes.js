@@ -8,8 +8,10 @@ expressRouter.route('/')
 .delete(authController.protect, orderController.deleteOrder)
 .post(authController.protect, orderController.createOrder);
 
+
 expressRouter.route('/:id')
 .get(authController.protect, orderController.getOrder)
+.patch(authController.protect, authController.restrictTo('admin'), orderController.updateOrder)
 
 
 expressRouter.post('/checkout-session/:id', authController.protect, orderController.getCheckoutSession)

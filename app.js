@@ -17,7 +17,7 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { createWebhookCheckout } = require('./controllers/order-controller.js');
-
+const morgan = require('morgan')
 const app = express();
 
 app.enable('trust proxy');
@@ -27,6 +27,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
+app.use(morgan('dev'));
 
 const limiter = rateLimit({
     max: 1000,
