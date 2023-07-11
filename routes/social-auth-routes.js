@@ -4,7 +4,7 @@ const expressRouter = require('express').Router();
 expressRouter.get(`/google`,passport.authenticate("google", ["profile", "email"]));
 
 expressRouter.get("/google/callback",passport.authenticate("google", {
-		successRedirect : 'http://localhost:3000/',
+		successRedirect : 'https://techspark.vercel.app/',
 		failureRedirect : '/api/v1/auth/failed'
 	}),
 );
@@ -19,7 +19,7 @@ expressRouter.get('/failed', (req,res)=>{
 
 expressRouter.get('/logout',  (req, res) => {
    if(req.logout()) req.logout();
-    res.redirect('http://localhost:3000/');
+    res.redirect('https://techspark.vercel.app/');
 });
 
 
