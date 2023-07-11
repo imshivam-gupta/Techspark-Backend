@@ -48,7 +48,7 @@ app.set('views', path.join(__dirname, 'views'));
 //      }
 //     });
     
-app.use(cors({credentials: true, origin: 'https://techspark.vercel.app/'}));
+app.use(cors());
 
 
 app.use(cookieParser())
