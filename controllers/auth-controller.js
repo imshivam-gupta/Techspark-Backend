@@ -8,7 +8,7 @@ const catchAsync = require("../utility/catch-async");
 const Email = require('../utility/mail-sender');
 const AppError = require("../utility/app-error");
 
-
+const passport = require("passport");
 
 
 const signToken = (id,email) => {
@@ -77,7 +77,10 @@ exports.login = catchAsync(async (req, res, next) => {
 
 
 exports.protect = catchAsync(async (req, res, next) => {
-    
+
+
+    if(req.user) return next();
+
     let token;
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
