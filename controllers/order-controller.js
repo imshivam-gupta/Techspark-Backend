@@ -148,7 +148,7 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
            console.log(event.data.object.metadata);
             const data = event.data.object.metadata;
            const order = await Order.findById(data.order_id);
-            const user = (await User.findById(data.user_id);
+            const user = await User.findById(data.user_id);
             
             order.paymentMethod = session.payment_method_types[0];
             order.isPaid = true;
