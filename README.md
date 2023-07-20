@@ -12,7 +12,7 @@ Techspark is a full-fledged ecommerce platform that enables users to browse, pur
 - **Mail Sender:** Send emails for user signup, password reset, and admin access requests using Nodemailer and Pug templates.
 - **JWT Authentication:** Ensure secure token-based authentication with JSON Web Tokens for enhanced security.
 - **Cloud Image Upload:**  Enable image uploading to the cloud using Cloudinary and Multer, ensuring efficient handling of images.
-- **Security Features ** Implement rate limiting to prevent API abuse, protect against NoSQL injection attacks, and handle XSS attacks for data sanitization.
+- **Security Features** Implement rate limiting to prevent API abuse, protect against NoSQL injection attacks, and handle XSS attacks for data sanitization.
 
 
 ## Technologies
