@@ -154,7 +154,6 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
             order.isPaid = true;
             order.paidAt = Date.now();
             order.user = user;
-            order.totalPrice = session.amount_total / 100;
             
             const cart = await Cart.findOne({user: user._id});
             cart.items = [];
