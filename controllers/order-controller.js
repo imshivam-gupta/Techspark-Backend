@@ -101,8 +101,7 @@ exports.createIntent = catchAsync(async(req,res,next) => {
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amount,
         currency: 'inr',
-        client_reference_id: req.params.id,
-        customer_email: req.user.email,
+        customer: req.params.id,
         automatic_payment_methods: {
           enabled: true,
         },
@@ -139,9 +138,11 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
         return next(new AppError('Webhook error',400));
     }
 
-    if(event.type === 'checkout.session.completed' ||event.type === 'payment_intent.succeeded') {
+    if(event.type === 'checkout.session.completed') {
         const session = event.data.object;
         completeOrder(event.data.object);
+    } else if(event.type === 'payment_intent.succeeded'){
+        console.log(event.data.object);
     }
 
     res.status(200).json({
