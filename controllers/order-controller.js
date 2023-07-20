@@ -102,7 +102,8 @@ exports.createIntent = catchAsync(async(req,res,next) => {
         amount: amount,
         currency: 'inr',
         metadata: {
-            id:req.params.id,
+            order_id: req.params.id,
+            user_id:req.user._id,
         },
         automatic_payment_methods: {
           enabled: true,
@@ -144,7 +145,22 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
         const session = event.data.object;
         completeOrder(event.data.object);
     } else if(event.type === 'payment_intent.succeeded'){
-        console.log(event.data.object);
+           console.log(event.data.object.metadata);
+            const data = event.data.object.metadata;
+           const order = await Order.findById(data.order_id);
+            const user = (await User.findById(data.user_id);
+            
+            order.paymentMethod = session.payment_method_types[0];
+            order.isPaid = true;
+            order.paidAt = Date.now();
+            order.user = user;
+            order.totalPrice = session.amount_total / 100;
+            
+            const cart = await Cart.findOne({user: user._id});
+            cart.items = [];
+        
+            await cart.save();
+            await order.save();
     }
 
     res.status(200).json({
