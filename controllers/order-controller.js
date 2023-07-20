@@ -145,12 +145,11 @@ exports.createWebhookCheckout = catchAsync(async(req,res,next) => {
         const session = event.data.object;
         completeOrder(event.data.object);
     } else if(event.type === 'payment_intent.succeeded'){
-           console.log(event.data.object.metadata);
+           console.log(event.data.object);
             const data = event.data.object.metadata;
            const order = await Order.findById(data.order_id);
             const user = await User.findById(data.user_id);
             
-            order.paymentMethod = session.payment_method_types[0];
             order.isPaid = true;
             order.paidAt = Date.now();
             order.user = user;
