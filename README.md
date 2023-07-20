@@ -6,13 +6,13 @@ Techspark is a full-fledged ecommerce platform that enables users to browse, pur
 
 ## Features
 
-- **Factory Handlers:** Factory Handlers for maintaining common apis like getting all docs from collection, update a doc, get doc by id, delete doc by id.
-- **Advanced Filtering  and Sorting :** Added filtering sorting limiting some feilds and pagination.
-- **Global Error Handler:** For maintaing dry pinciple added global error handler for error handling at single palce.
-- **Mail Sender:** Added mail sending features when user signup foregets password or want to request admin access.
-- **JWT Authentication:** JWT based token authentication with much more security .
-- **Cloud Image Upload:** Image uploading on cloud using cloundinary and multer,
-- **Security Features **Added rate limiting features for apipreventing data sanitization against NOSQL query and XSS attacks
+- **Factory Handlers:** Utilize Factory Handlers to manage common APIs such as retrieving all documents from a collection, updating a document, getting a document by ID, and deleting a document by ID.
+- **Advanced Filtering  and Sorting :** Easily filter, sort, limit fields, and enable pagination for efficient data management.
+- **Global Error Handler:**  Implement a global error handler to centralize and handle errors effectively.
+- **Mail Sender:** Send emails for user signup, password reset, and admin access requests using Nodemailer and Pug templates.
+- **JWT Authentication:** Ensure secure token-based authentication with JSON Web Tokens for enhanced security.
+- **Cloud Image Upload:**  Enable image uploading to the cloud using Cloudinary and Multer, ensuring efficient handling of images.
+- **Security Features ** Implement rate limiting to prevent API abuse, protect against NoSQL injection attacks, and handle XSS attacks for data sanitization.
 
 
 ## Technologies
@@ -27,8 +27,8 @@ To setup Techspark locally -
 - Clone this repository to your local machine.
 - Install the necessary dependencies using npm install.
 - Run the development server with npm start.
-- Create your own environment variables
-- Access the application by visiting http://localhost:000 in your web browser.
+- Create your own environment variables.
+- Access the application by visiting http://localhost:8000 in your web browser.
 
 ## Contact
 For any inquiries or feedback, please reach out to me on [Linkedin](https://www.linkedin.com/in/shivam-gupta-bbb669226/ "Linkedin").
