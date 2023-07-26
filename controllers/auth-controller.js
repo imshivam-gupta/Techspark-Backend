@@ -8,8 +8,6 @@ const catchAsync = require("../utility/catch-async");
 const Email = require('../utility/mail-sender');
 const AppError = require("../utility/app-error");
 
-const passport = require("passport");
-
 
 const signToken = (id,email) => {
     return jwt.sign({ id,email }, process.env.JWT_SECRET, {
@@ -178,4 +176,33 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
     createSendToken(user, 200, res);
 });
+
+exports.googleAuthenticator = catchAsync(async (req, res, next) => {
+    const {data} = req.body;
+    const user = await User.findOne({email: data.email}).select('+password');
+    if(user) {
+        if(user.image === "https://i.ibb.co/LNchwvr/5794329.jpg") {
+            user.image = data.picture;
+            await user.save();
+        }
+        createSendToken(user,200,res);
+    } else {
+        const password = crypto.randomBytes(16).toString('hex');
+        data.password = password;
+        data.passwordConfirm = password;
+
+        console.log(data);
+
+        const newUser = await User.create({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            passwordConfirm: data.passwordConfirm,
+            image: data.picture
+        });
+        await new Email(newUser,`${req.protocol}://${req.get('host')}/me`).sendWelcome();
+        createSendToken(newUser, 201, res);
+    }
+});
+
 
